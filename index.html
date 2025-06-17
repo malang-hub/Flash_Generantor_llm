@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM-Powered Flashcard Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎓 LLM-Powered Flashcard Generator</h1>
+            <p>Transform your educational content into interactive flashcards using AI</p>
+        </header>
+
+        <div class="input-section">
+            <div class="tabs">
+                <button class="tab-button active" onclick="switchTab('text')">Text Input</button>
+                <button class="tab-button" onclick="switchTab('file')">File Upload</button>
+            </div>
+
+            <form id="flashcard-form" enctype="multipart/form-data">
+                <div id="text-tab" class="tab-content active">
+                    <textarea id="content" name="content" placeholder="Paste your educational content here (textbook excerpts, lecture notes, etc.)..." rows="8"></textarea>
+                </div>
+
+                <div id="file-tab" class="tab-content">
+                    <div class="file-upload">
+                        <input type="file" id="file-input" name="file" accept=".txt,.pdf">
+                        <label for="file-input">
+                            <span>📁 Choose File</span>
+                            <small>Supports .txt and .pdf files</small>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-controls">
+                    <button type="submit" id="generate-btn">
+                        <span class="btn-text">Generate Flashcards</span>
+                        <span class="loading-spinner" style="display: none;">⏳</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div id="flashcards-section" style="display: none;">
+            <div class="section-header">
+                <h2>Generated Flashcards</h2>
+                <div class="export-controls">
+                    <button onclick="exportFlashcards('json')" class="export-btn">Export JSON</button>
+                    <button onclick="exportFlashcards('csv')" class="export-btn">Export CSV</button>
+                </div>
+            </div>
+            
+            <div id="flashcards-stats"></div>
+            <div id="flashcards-output"></div>
+        </div>
+
+        <div id="error-message" class="error-message" style="display: none;"></div>
+    </div>
+
+    <footer>
+        <p>Built with ❤️ using Hugging Face Transformers and Flask</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
